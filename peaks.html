@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>UA Delivery — Peaky & trendy</title>
+<html><head><meta charset="utf-8"><title>UA Delivery — Peaky &amp; trendy</title>
 <style>
 body { font-family: -apple-system, Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 30px; background: #fafafa; color: #222; line-height: 1.55; }
 h1 { border-bottom: 3px solid #1f77b4; padding-bottom: 8px; }
@@ -22,50 +22,51 @@ nav a { color: white; margin-right: 20px; text-decoration: none; }
 </nav>
 <h1>UA Delivery Tickets — analýza peakov a trendov</h1>
 
-<p>LLM klasifikácia 6 063 customer-initiated UA ticketov o doručení (2025-05 → 2026-06). Pre každú kategóriu: trend, príčina, ukážkové tickety s linkmi do Ladesku a popisom typickej situácie.</p>
+<p>LLM klasifikácia 4 448 customer-initiated UA ticketov o doručení (2025-05 → 2026-06). Z pôvodných 8 336 ticketov boli odfiltrované:</p>
+<ul>
+<li>2 242 mis-classified ako delivery (skutočne o vrátiach/platbách/iných témach)</li>
+<li>1 624 z <code>data_or_system_error</code> ktoré neovplyvňujú doručenie (payment fails, promo kódy, duplikáty, account issues) — ponechané len problémy s <strong>adresou/kontaktom</strong></li>
+<li>31 ticketov pred 2025-05 (neúplné backfill data)</li>
+</ul>
+
+<p>Pre každú kategóriu nájdeš trend, príčinu, ukážkové tickety s Ladesk linkami a popisom typickej situácie.</p>
 
 <hr>
 
-<h2>1. <code>data_or_system_error</code> — PEAK Sep-Nov 2025, prudký pokles od Dec 2025</h2>
+<h2>1. <code>address_or_contact_issue</code> — STABILNÝ ~10-29/mes</h2>
 
 <h3>Trend</h3>
 <table>
-<tr><th>Mesiac</th><th>Počet</th></tr>
-<tr><td>2025-09</td><td>230</td></tr>
-<tr><td><strong>2025-10</strong></td><td><strong>310 (peak)</strong></td></tr>
-<tr><td>2025-11</td><td>235</td></tr>
-<tr><td>2025-12</td><td>95</td></tr>
-<tr><td>2026-03</td><td>82</td></tr>
-<tr><td>2026-05</td><td>62</td></tr>
+<tr><th>Obdobie</th><th>Priemer/mes</th></tr>
+<tr><td>Máj-Dec 2025</td><td>12-19</td></tr>
+<tr><td>Jan-Apr 2026</td><td>20-29 (mierny ramp)</td></tr>
+<tr><td>Máj-Jún 2026</td><td>9-19</td></tr>
 </table>
 
+<p>Nie je tu dramatický peak. Mierny nárast od jan 2026 (možno korelácia s customs ramp-om — pri nadrozmernom prísnejšom colnictve zákazníci si všímajú detaily adresy).</p>
+
 <h3>Príčina</h3>
-<p><strong>85–90 % ticketov v peaku malo platobnú tému.</strong> V troughovom období padol podiel na 32–47 %. V absolútnych číslach: ~280 platobných ticketov/mes → ~25–40/mes (<strong>~10× pokles</strong>).</p>
+<p>Zákazník alebo agent zistil, že <strong>adresa/telefón/meno príjemcu</strong> v objednávke nie sú správne, a treba ich opraviť pred / počas doručenia.</p>
 
-<p><strong>Hypotéza:</strong> Platobná integrácia (gateway / UX / nová metóda) sa <strong>opravila medzi nov–dec 2025</strong>.</p>
-
-<h3>Vzorová situácia v peaku (platobné problémy)</h3>
+<h3>Vzorové tickety</h3>
 <ul>
-<li>🎫 <a href="https://gymbeam.ladesk.com/agent/index.php?rnd=8325#Conversation;id=uccfa2sj" target="_blank">KKW-LQBVK-540</a> — <em>2025-09-27</em> — resol: <code>refund_full</code>, urgency: <code>medium</code></li>
+<li>🎫 <a href="https://gymbeam.ladesk.com/agent/index.php?rnd=8325#Conversation;id=p8nwht0w" target="_blank">CLD-RGFWJ-358</a> — <em>2025-11-07</em> — resol: <code>info_only</code>, urgency: <code>low</code></li>
 </ul>
-<blockquote>Zákazník omylom zaplatil zrušenú objednávku. Následne mu bola vrátená vyššia suma, než mal zaplatiť, a preto bol požiadaný o vrátenie preplatku. Po vyriešení preplatku boli zákazníkovi vrátené peniaze za pôvodnú zrušenú objednávku.</blockquote>
+<blockquote>Zákazník nahlásil, že platbu vykonal, ale príjemcom objednávky nie je on, ale iná osoba s konkrétnym menom a telefónnym číslom. Agent potvrdil zmenu údajov príjemcu a požiadal o zaslanie potvrdenia o platbe vo formáte PDF pre rýchlejšie spracovanie finančným oddelením.</blockquote>
 <ul>
-<li>🎫 <a href="https://gymbeam.ladesk.com/agent/index.php?rnd=8325#Conversation;id=of5fg55c" target="_blank">PZC-ZKPLK-453</a> — <em>2025-11-25</em> — resol: <code>info_only</code>, urgency: <code>low</code></li>
+<li>🎫 <a href="https://gymbeam.ladesk.com/agent/index.php?rnd=8325#Conversation;id=kj58vpa4" target="_blank">RQS-KCHHQ-043</a> — <em>2026-06-11</em> — resol: <code>escalated_to_carrier</code>, urgency: <code>low</code></li>
 </ul>
-<blockquote>Zákazník chcel platbu na dobierku do balíkomatu, čo nie je možné. Agent mu ponúkol zmenu doručenia na pobočku s dobierkou (s poplatkom) alebo opätovné zaslanie odkazu na platbu vopred.</blockquote>
-
-<h3>Vzorová situácia v troughu (varied)</h3>
+<blockquote>Zákazník nahlásil, že mu neukazuje zásielku v aplikácii. Agent zistil, že zákazník zadal chybné telefónne číslo. Agent požiadal o správne číslo a následne požiadal prepravcu o zmenu kontaktných údajov.</blockquote>
 <ul>
-<li>🎫 <a href="https://gymbeam.ladesk.com/agent/index.php?rnd=8325#Conversation;id=3vb8fl20" target="_blank">LNM-MWGLS-839</a> — <em>2026-05-12</em> — resol: <code>customer_self_resolved</code>, urgency: <code>low</code></li>
+<li>🎫 <a href="https://gymbeam.ladesk.com/agent/index.php?rnd=8325#Conversation;id=i8bac17p" target="_blank">DPS-JKHPG-157</a> — <em>2025-07-21</em> — resol: <code>info_only</code>, urgency: <code>low</code></li>
 </ul>
-<blockquote>Zákazník nahlásil, že dostal oznámenie o prijatí objednávky, ale zásielku neobdržal a v účte mal uvedené nesprávne telefónne číslo. Agent mu ponúkol zmenu telefónneho čísla u prepravcu, avšak zákazník si zásielku medzitým vyzdvihol na pôvodné číslo.</blockquote>
-<ul>
-<li>🎫 <a href="https://gymbeam.ladesk.com/agent/index.php?rnd=8325#Conversation;id=fw654zgm" target="_blank">GPZ-BRRCJ-264</a> — <em>2026-06-02</em> — resol: <code>info_only</code>, urgency: <code>low</code></li>
-</ul>
-<blockquote>Zákazníčka žiadala o zaslanie faktúry na úhradu objednávky, pretože chcela zmeniť spôsob platby. Agentka ju informovala, že zmena spôsobu platby už nie je možná, keďže objednávka bola odoslaná a platba na základe faktúry nie je dostupná pre ukrajinských zákazníkov.</blockquote>
+<blockquote>Zákazník má problém s vyplnením adresy pre doručenie na pobočku Novej pošty v Kyjeve, konkrétne s pobočkou č. 90. Agent mu radí, ako správne zadať údaje do formulára: najprv mesto Kyjev, potom číslo pobočky 90, a následne ulicu a PSČ.</blockquote>
 
 <h3>Akcia</h3>
-<p>Potvrdiť u payment integration tímu, čo sa fixlo nov–dec 2025, replikovať learnings.</p>
+<ul>
+<li>Validácia adresy už pri checkoute (autocomplete z Nova Post adresára obce/ulice)</li>
+<li>Povinné overenie telefónneho čísla pred odoslaním (možno SMS verifikácia)</li>
+</ul>
 
 <hr>
 
@@ -74,8 +75,8 @@ nav a { color: white; margin-right: 20px; text-decoration: none; }
 <h3>Trend</h3>
 <table>
 <tr><th>Obdobie</th><th>Priemer/mes</th></tr>
-<tr><td>Máj–Nov 2025</td><td>3–4</td></tr>
-<tr><td><strong>Dec 2025+</strong></td><td><strong>9–18</strong></td></tr>
+<tr><td>Máj-Nov 2025</td><td>3-4</td></tr>
+<tr><td><strong>Dec 2025+</strong></td><td><strong>9-18</strong></td></tr>
 </table>
 
 <h3>Príčina</h3>
@@ -105,7 +106,7 @@ nav a { color: white; margin-right: 20px; text-decoration: none; }
 <h3>Trend</h3>
 <table>
 <tr><th>Mesiac</th><th>Počet</th></tr>
-<tr><td>Predtým / potom</td><td>1–4</td></tr>
+<tr><td>Predtým / potom</td><td>1-4</td></tr>
 <tr><td><strong>2026-01</strong></td><td><strong>34</strong></td></tr>
 </table>
 
@@ -138,8 +139,8 @@ nav a { color: white; margin-right: 20px; text-decoration: none; }
 <h3>Trend</h3>
 <table>
 <tr><th>Obdobie</th><th>Priemer/mes</th></tr>
-<tr><td>Máj–Nov 2025</td><td>1–5</td></tr>
-<tr><td><strong>Jan 2026+</strong></td><td><strong>17–29 (sustained)</strong></td></tr>
+<tr><td>Máj-Nov 2025</td><td>1-5</td></tr>
+<tr><td><strong>Jan 2026+</strong></td><td><strong>17-29 (sustained)</strong></td></tr>
 </table>
 
 <h3>Príčina</h3>
@@ -179,8 +180,8 @@ nav a { color: white; margin-right: 20px; text-decoration: none; }
 <h3>Trend</h3>
 <table>
 <tr><th>Obdobie</th><th>Priemer/mes</th></tr>
-<tr><td>Máj–Sep 2025</td><td>1–5</td></tr>
-<tr><td>Q1–Q2 2026</td><td>9–17 (peak Máj 2026: 17)</td></tr>
+<tr><td>Máj-Sep 2025</td><td>1-5</td></tr>
+<tr><td>Q1-Q2 2026</td><td>9-17 (peak Máj 2026: 17)</td></tr>
 </table>
 
 <h3>Príčiny (tri prepojené)</h3>
@@ -225,7 +226,7 @@ nav a { color: white; margin-right: 20px; text-decoration: none; }
 
 <h2>Celkový obraz</h2>
 
-<p>Tri trendy s rampom od Dec 2025 / Jan 2026 — <code>customs_or_border_held</code>, <code>lost_in_transit</code>, <code>failed_delivery_customer_side</code> — vyzerajú ako <strong>kumulatívny dôsledok zhoršenia UA logistickej situácie</strong>:</p>
+<p>Štyri trendy s rampom od Dec 2025 / Jan 2026 — <code>customs_or_border_held</code>, <code>lost_in_transit</code>, <code>failed_delivery_customer_side</code>, mierne aj <code>address_or_contact_issue</code> — vyzerajú ako <strong>kumulatívny dôsledok zhoršenia UA logistickej situácie</strong>:</p>
 <ul>
 <li>Sprísnené UA colné kontroly (od ~Q4 2025)</li>
 <li>Útoky na Nova Post infraštruktúru</li>
@@ -233,7 +234,7 @@ nav a { color: white; margin-right: 20px; text-decoration: none; }
 <li>Zmena GymBeam interných policies smerom k refund-only</li>
 </ul>
 
-<p><strong>Naopak <code>data_or_system_error</code></strong> má opačný trend — Q4 2025 peak v platobných problémoch sa vyriešil okolo dec 2025.</p>
+<p><strong>Poznámka k pôvodnej analýze <code>data_or_system_error</code>:</strong> v predošlej verzii sme videli peak Sep-Nov 2025 (310 ticketov), ktorý sa ukázal byť <strong>payment problémami</strong> (85-90 % obsahu). Tieto sú teraz odfiltrované, lebo netýkajú sa doručenia. Trend v platbách bol vyriešený okolo dec 2025 — payment integration sa pravdepodobne fixla.</p>
 
 <hr>
 
@@ -242,7 +243,7 @@ nav a { color: white; margin-right: 20px; text-decoration: none; }
 <table>
 <tr><th>Priorita</th><th>Akcia</th></tr>
 <tr><td><strong>Vysoká</strong></td><td>Customs transparency na checkoute pre objednávky nad 150 €</td></tr>
-<tr><td><strong>Vysoká</strong></td><td>Potvrdiť s payment tímom čo sa fixlo v dec 2025 (replikovať learnings)</td></tr>
+<tr><td><strong>Vysoká</strong></td><td>Validácia adresy a telefónu pri checkoute (autocomplete + verifikácia)</td></tr>
 <tr><td>Stredná</td><td>Automatizovať monitoring Nova Post Europe batch reportov</td></tr>
 <tr><td>Stredná</td><td>Preveriť Nova Post UA storage policy a upraviť customer notifikácie pred expiry</td></tr>
 <tr><td>Stredná</td><td>Re-evaluovať refund-vs-reorder policy</td></tr>
